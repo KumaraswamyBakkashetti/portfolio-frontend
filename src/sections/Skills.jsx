@@ -1,87 +1,34 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+// icons for each skill
+import {
+  SiJavascript,
+  SiReact,
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiPython,
+  SiMysql,
+  SiAmazonaws,
+  SiDocker,
+  SiOpenai
+} from "react-icons/si";
 
+// represent each skill with meta data for color/icon
 const ALL_SKILLS = [
-  "JavaScript",
-  "React",
-  "Node.js",
-  "Express",
-  "MongoDB",
-  "Python",
-  "SQL",
-  "AWS",
-  "Docker",
-  "LLMs"
+  { label: "JavaScript", Icon: SiJavascript, color: "#f7df1e" },
+  { label: "React", Icon: SiReact, color: "#61dafb" },
+  { label: "Node.js", Icon: SiNodedotjs, color: "#539e43" },
+  { label: "Express", Icon: SiExpress, color: "#000000" },
+  { label: "MongoDB", Icon: SiMongodb, color: "#47a248" },
+  { label: "Python", Icon: SiPython, color: "#3776ab" },
+  { label: "SQL", Icon: SiMysql, color: "#4479a1" },
+  { label: "AWS", Icon: SiAmazonaws, color: "#ff9900" },
+  { label: "Docker", Icon: SiDocker, color: "#2496ed" },
+  { label: "LLMs", Icon: SiOpenai, color: "#000000" }
 ];
 
-const random = (min, max) => Math.random() * (max - min) + min;
-
-const SkillBall = ({ label, onSelect }) => {
-  const size = random(80, 105);
-  const startX = random(5, 80);
-  const fallDistance = 300;
-  const bounceHeight = random(40, 70);
-
-  return (
-    <motion.div
-      className="
-        absolute
-        flex items-center justify-center
-        rounded-full
-        text-white font-semibold
-        border border-purple-400/90
-        bg-white/10
-        backdrop-blur-sm
-        drop-shadow-[0_10px_28px_rgba(0,0,0,1)]
-        select-none
-        cursor-pointer
-      "
-      style={{
-        width: size,
-        height: size,
-        left: `${startX}%`
-      }}
-      initial={{ y: -140 }}
-      animate={{
-        y: [
-          0,
-          fallDistance,
-          fallDistance - bounceHeight,
-          fallDistance
-        ]
-      }}
-      transition={{
-        duration: random(3.5, 5),
-        times: [0, 0.65, 0.85, 1],
-        ease: ["easeIn", "easeOut", "easeIn"]
-      }}
-      whileHover={{
-        scale: 1.1,
-        boxShadow:
-          "0 0 22px rgba(168,85,247,1), 0 0 44px rgba(220,38,38,0.8)"
-      }}
-      onClick={() => onSelect(label)}
-    >
-      {label}
-    </motion.div>
-  );
-};
 
 const Skills = () => {
-  const [activeSkills, setActiveSkills] = useState(ALL_SKILLS);
-  const [collected, setCollected] = useState([]);
-
-  const handleSelect = skill => {
-    setActiveSkills(prev => prev.filter(s => s !== skill));
-    setCollected(prev => [...prev, skill]);
-  };
-
-  const reset = () => {
-    setTimeout(() => {
-      setCollected([]);
-      setActiveSkills(ALL_SKILLS);
-    }, 1200);
-  };
+  // static presentation of skills as bars
 
   return (
     <section
@@ -100,71 +47,20 @@ const Skills = () => {
         Skills
       </h2>
 
-      {/* MAIN LAYOUT */}
-      <div className="relative z-10 w-full max-w-7xl flex gap-10">
-        {/* LEFT COLLECTED */}
-        <div className="w-1/5 flex flex-col gap-4 justify-start items-center pt-40">
-          {collected
-            .slice(Math.ceil(collected.length / 2))
-            .map(skill => (
-              <div
-                key={skill}
-                className="
-                  px-4 py-2
-                  rounded-full
-                  border border-purple-400/80
-                  text-white text-sm
-                  drop-shadow-[0_4px_16px_rgba(0,0,0,1)]
-                "
-              >
-                {skill}
-              </div>
-            ))}
-        </div>
-
-        {/* BOUNCE BOX */}
-        <div
-          className="
-            relative
-            w-3/5
-            h-[420px]
-            rounded-3xl
-            border border-purple-400/70
-            bg-black/25
-            backdrop-blur-sm
-            overflow-hidden
-          "
-        >
-          {activeSkills.map(skill => (
-            <SkillBall
-              key={skill}
-              label={skill}
-              onSelect={handleSelect}
-            />
-          ))}
-
-          {activeSkills.length === 0 && reset()}
-        </div>
-
-        {/* RIGHT COLLECTED */}
-        <div className="w-1/5 flex flex-col gap-4 justify-start items-center pt-40">
-          {collected
-            .slice(0, Math.ceil(collected.length / 2))
-            .map(skill => (
-              <div
-                key={skill}
-                className="
-                  px-4 py-2
-                  rounded-full
-                  border border-purple-400/80
-                  text-white text-sm
-                  drop-shadow-[0_4px_16px_rgba(0,0,0,1)]
-                "
-              >
-                {skill}
-              </div>
-            ))}
-        </div>
+      {/* STATIC BARS GRID */}
+      <div className="relative z-10 w-full max-w-4xl mt-32 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+        {ALL_SKILLS.map(skill => (
+          <div
+            key={skill.label}
+            className="flex items-center gap-3 p-4 rounded-lg transition-transform hover:scale-105"
+            style={{ backgroundColor: skill.color + "bb" }}
+          >
+            {skill.Icon && <skill.Icon className="w-6 h-6 text-white" />}
+            <span className="text-white font-medium">
+              {skill.label}
+            </span>
+          </div>
+        ))}
       </div>
     </section>
   );
