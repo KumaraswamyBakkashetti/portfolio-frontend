@@ -57,7 +57,6 @@ const ALL_SKILLS = [
 ];
 
 
-import Reveal from "./Reveal";
 
 const Skills = () => {
   // static presentation of skills as bars
@@ -74,28 +73,37 @@ const Skills = () => {
           text-4xl md:text-5xl font-bold
           text-white
           drop-shadow-[0_8px_40px_rgba(120,0,200,1)]
+          uppercase tracking-widest
         "
       >
         Skills
       </h2>
 
       {/* STATIC BARS GRID */}
-      <Reveal>
-        <div className="relative z-10 w-full max-w-4xl mt-32 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-          {ALL_SKILLS.map(skill => (
-            <div
-              key={skill.label}
-              className="flex items-center gap-3 p-4 rounded-lg transition-transform hover:scale-105"
-              style={{ backgroundColor: skill.color + "bb" }}
-            >
-              {skill.Icon && <skill.Icon className="w-6 h-6 text-white" />}
-              <span className="text-white font-medium">
-                {skill.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </Reveal>
+      {/* glow circles */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/3 left-1/4 w-60 h-60 bg-neon/10 rounded-full blur-2xl" />
+        <div className="absolute bottom-1/4 right-1/3 w-56 h-56 bg-neonPink/10 rounded-full blur-2xl" />
+      </div>
+      <div className="relative z-10 w-full max-w-4xl mt-32 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+        {ALL_SKILLS.map(skill => (
+          <div
+            key={skill.label}
+            className="flex items-center gap-3 p-4 rounded-lg shadow-inner transition-all duration-300 hover:scale-105 hover:bg-white/30"
+            style={{ borderLeft: `6px solid ${skill.color}` }}
+          >
+            {skill.Icon && (
+              <skill.Icon
+                className="w-6 h-6 hover:animate-pulse"
+                style={{ color: skill.color }}
+              />
+            )}
+            <span className="text-white font-medium">
+              {skill.label}
+            </span>
+          </div>
+        ))}
+      </div>
     </section>
   );
 };
