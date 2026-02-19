@@ -1,30 +1,18 @@
 import Reveal from "./Reveal";
 import ProjectCard from "../components/ProjectCard";
 import VideoBackground from "../components/VideoBackground";
+import Magnetic from "../components/Magnetic";
+import { PROJECTS } from "../data/projectsData";
 
 
-const projects = [
-  {
-    title: "AI Wiki Quiz Generator",
-    desc: "LLM-powered quiz creation from Wikipedia articles."
-  },
-  {
-    title: "Agent Monitor",
-    desc: "Multi-agent safety and validation framework."
-  },
-  {
-    title: "E-Commerce Platform",
-    desc: "High-performance full-stack commerce system."
-  }
-];
-
+// display a decorative accent behind the grid
 const Projects = () => {
   return (
     <section
-  id="projects"
-  className="relative min-h-screen px-6 py-32 overflow-hidden"
->
-  <VideoBackground src="/videos/projects.mp4" />
+      id="projects"
+      className="relative min-h-screen px-6 py-32 overflow-hidden"
+    >
+      <VideoBackground src="/videos/projects.mp4" />
 
       <div className="max-w-6xl mx-auto">
         <Reveal>
@@ -34,9 +22,17 @@ const Projects = () => {
         </Reveal>
 
         <div className="grid md:grid-cols-3 gap-10">
-          {projects.map((p, i) => (
-            <Reveal key={i}>
-              <ProjectCard title={p.title} desc={p.desc} />
+          {PROJECTS.map((p, i) => (
+            <Reveal key={p.id || i}>
+              <Magnetic>
+                <ProjectCard
+                  title={p.title}
+                  subtitle={p.subtitle}
+                  desc={p.desc}
+                  tech={p.tech}
+                  url={p.url}
+                />
+              </Magnetic>
             </Reveal>
           ))}
         </div>
@@ -44,5 +40,7 @@ const Projects = () => {
     </section>
   );
 };
+
+
 
 export default Projects;
