@@ -14,6 +14,19 @@ const Contact = () => {
       >
         <h2 className="text-4xl font-bold mb-6 text-center">Contact Me</h2>
 
+        {/* contact details */}
+        <div className="mb-6 text-center space-y-2">
+          <p>
+            Email: <a href="mailto:kumaraswamybakkashetti@gmail.com" className="text-neon underline">kumaraswamybakkashetti@gmail.com</a>
+          </p>
+          <p>
+            LinkedIn: <a href="https://www.linkedin.com/in/kumaraswamy-bakkashetti-5164482b0/" target="_blank" rel="noopener noreferrer" className="text-neon underline">linkedin.com/in/kumaraswamy-bakkashetti-5164482b0</a>
+          </p>
+          <p>
+            GitHub: <a href="https://github.com/KumaraswamyBakkashetti" target="_blank" rel="noopener noreferrer" className="text-neon underline">github.com/KumaraswamyBakkashetti</a>
+          </p>
+        </div>
+
         <form className="space-y-6">
           <input
             type="text"
